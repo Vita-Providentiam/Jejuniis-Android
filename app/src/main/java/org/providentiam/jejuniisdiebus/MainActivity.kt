@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
+        fab_menu.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
@@ -63,22 +63,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
+            R.id.nav_status -> {
+                // Handle the status action
             }
-            R.id.nav_gallery -> {
+            R.id.nav_plan -> {
 
             }
-            R.id.nav_slideshow -> {
+            R.id.nav_logbook -> {
 
             }
-            R.id.nav_manage -> {
+            R.id.nav_chart -> {
 
             }
             R.id.nav_share -> {
 
             }
-            R.id.nav_send -> {
+            R.id.nav_settings -> {
 
             }
         }
