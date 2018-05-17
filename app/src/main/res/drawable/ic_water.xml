@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created by Yazmin Alanis from the Noun Project -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="58"
+    android:viewportHeight="58">
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50.5,2 C50.5,0.9,49.6,0,48.5,0 L9.5,0 C8.4,0,7.5,0.9,7.5,2 C7.5,3,8.3,3.9,9.2,4
+L13.5,56.4 C13.6,57.3,14.3,58,15.2,58 L42.8,58 C43.7,58,44.5,57.3,44.5,56.4
+L48.7,4 C49.7,3.9,50.5,3,50.5,2 Z M41.1,54.6 L16.7,54.6 L12.6,4 L45.2,4
+L41.1,54.6 Z" />
+</vector>
