@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "layers": {
+    "vectorLayer": {
+      "id": "11422",
+      "name": "playtopause",
+      "type": "vector",
+      "children": [
+        {
+          "id": "11423",
+          "name": "group",
+          "type": "group",
+          "pivotX": 12,
+          "pivotY": 12,
+          "children": [
+            {
+              "id": "11424",
+              "name": "path",
+              "type": "path",
+              "pathData": "M 8 5 L 8 19 L 19 12 Z",
+              "fillColor": "#ffffff",
+              "strokeWidth": 1
+            }
+          ]
+        }
+      ]
+    },
+    "hiddenLayerIds": []
+  },
+  "timeline": {
+    "animation": {
+      "id": "11425",
+      "name": "anim",
+      "duration": 300,
+      "blocks": [
+        {
+          "id": "11426",
+          "layerId": "11424",
+          "propertyName": "pathData",
+          "startTime": 0,
+          "endTime": 300,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "path",
+          "fromValue": "M 8 5 L 8 12 L 19 12 L 19 12 L 8 5 M 8 12 L 8 19 L 19 12 L 19 12 L 8 12",
+          "toValue": "M 5 6 L 5 10 L 19 10 L 19 6 L 5 6 M 5 14 L 5 18 L 19 18 L 19 14 L 5 14"
+        },
+        {
+          "id": "11427",
+          "layerId": "11423",
+          "propertyName": "rotation",
+          "startTime": 0,
+          "endTime": 300,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": 90
+        }
+      ]
+    }
+  }
+}
