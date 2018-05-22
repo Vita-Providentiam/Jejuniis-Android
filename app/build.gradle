@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 'android-P'
     defaultConfig {
         applicationId "org.providentiam.jejuniisdiebus"
         minSdkVersion 21
@@ -21,7 +21,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.0 rc2'
     productFlavors {
     }
 }
@@ -29,10 +29,13 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha1'
+    implementation 'com.android.support:support-v4:28.0.0-alpha1'
+    implementation 'com.android.support:design:28.0.0-alpha1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:cardview-v7:28.0.0-alpha1'
+    implementation 'com.android.support:design:28.0.0-alpha1'
+    implementation 'com.diogobernardino:williamchart:2.5.0'
     implementation 'com.github.clans:fab:1.6.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
