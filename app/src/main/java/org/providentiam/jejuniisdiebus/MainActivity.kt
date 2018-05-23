@@ -12,6 +12,8 @@ import android.support.graphics.drawable.AnimatedVectorDrawableCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.text.Html
+import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -25,6 +27,9 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.providentiam.jejuniisdiebus.utils.FabHelper
 import org.providentiam.jejuniisdiebus.utils.FabHelperApi23
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +51,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setupNavigation()
         setupChart()
+        setupSummary()
+    }
+
+    private fun setupSummary() {
+        val fasting_count = 32
+        val fasting_month_count = 12
+        val fasting_goal = 36
+        val fasting_average = 16.5
+
+        val calendar = Calendar.getInstance()
+        calendar.time = Date()
+        calendar.add(Calendar.DATE, -3)
+        val fasting_last_date = Date(calendar.timeInMillis)
+
+        val formatter = SimpleDateFormat("dd-MM-yyyy")
+
+        val fasting_last_duration = 16
+        val fasting_interval = 72
+
+        val text = "<p>You have tracked $fasting_count fasting periods so far.<br><b>This month count is $fasting_month_count periods</b>.</p><p>Your goal is to fast for <b>at least $fasting_goal hours</b> and your actual <b>average is $fasting_average hours</b>.</p><p>Your last fast was on ${formatter.format(fasting_last_date)} ($fasting_last_duration hours).<br>It has been <b>$fasting_interval hours since the last fasting period</b></p>"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            summary_table.text = Html.fromHtml(text, FROM_HTML_MODE_LEGACY)
+        } else {
+            @Suppress("DEPRECATION")
+            summary_table.text = Html.fromHtml(text)
+        }
     }
 
     private fun setupChart() {
