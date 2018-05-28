@@ -1,14 +1,17 @@
 package org.providentiam.jejuniisdiebus
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.transition.AutoTransition
+import android.transition.TransitionInflater
+import android.util.AttributeSet
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -37,13 +40,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setupNavigation()
 
-        val mainFragment = MainFragment()
-        mainFragment.enterTransition = AutoTransition()
-        mainFragment.exitTransition = AutoTransition()
+        Handler().postDelayed({
+            val mainFragment = MainFragment()
+            mainFragment.enterTransition = TransitionInflater.from(this).inflateTransition(R.transition.content_main_in)
+            mainFragment.exitTransition = TransitionInflater.from(this).inflateTransition(R.transition.content_main_out)
 
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.scene_root, mainFragment)
-                .commit()
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.scene_root, mainFragment)
+                    .commit()
+        }, 1200)
     }
 
     private fun setupNavigation() {
@@ -59,14 +64,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fab_menu.visibility = View.VISIBLE
         fab.visibility = View.GONE
 
-        // val mainScene : Scene = Scene.getSceneForLayout(scene_root, R.layout.content_main, this)
-        // val runningScene : Scene = Scene.getSceneForLayout(scene_root, R.layout.content_running, this)
-        // TransitionManager.beginDelayedTransition(scene_root, TransitionSet().addTransition(AutoTransition()))
-
-
-
         val runningFragment = RunningFragment()
-        runningFragment.enterTransition = AutoTransition()
+        runningFragment.enterTransition = TransitionInflater.from(this).inflateTransition(R.transition.content_running_in)
+        runningFragment.exitTransition = TransitionInflater.from(this).inflateTransition(R.transition.content_running_out)
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.scene_root, runningFragment)

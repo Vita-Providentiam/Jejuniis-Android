@@ -1,6 +1,7 @@
 package org.providentiam.jejuniisdiebus
 
 import android.animation.PropertyValuesHolder
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
@@ -26,10 +27,12 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupChart()
         setupSummary()
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun setupSummary() {
         val fasting_count = 32
         val fasting_month_count = 12

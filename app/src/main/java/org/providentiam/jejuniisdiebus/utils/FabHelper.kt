@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.support.design.widget.FloatingActionButton
 import android.support.graphics.drawable.Animatable2Compat
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat
+import org.providentiam.jejuniisdiebus.R
 
 class FabHelper {
     companion object {
@@ -24,6 +25,11 @@ class FabHelper {
 
                 anim.start()
             }
+        }
+
+        fun resetAnimation(fab: FloatingActionButton, resId: Int) {
+            val drawable = AnimatedVectorDrawableCompat.create(fab.context, resId);
+            fab.setImageDrawable(drawable)
         }
     }
 }

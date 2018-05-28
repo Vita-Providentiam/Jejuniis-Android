@@ -28,5 +28,10 @@ class FabHelperApi23 {
                 anim.start()
             }
         }
+
+        fun resetAnimation(fab: FloatingActionButton) {
+            val anim = fab.drawable as AnimatedVectorDrawable
+            anim.reset()
+        }
     }
 }
