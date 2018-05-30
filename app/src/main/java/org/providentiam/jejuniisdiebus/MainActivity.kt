@@ -1,6 +1,5 @@
 package org.providentiam.jejuniisdiebus
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -10,8 +9,9 @@ import android.support.graphics.drawable.AnimatedVectorDrawableCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.transition.Transition
 import android.transition.TransitionInflater
-import android.util.AttributeSet
+import android.transition.TransitionSet
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.providentiam.jejuniisdiebus.utils.FabHelper
 import org.providentiam.jejuniisdiebus.utils.FabHelperApi23
-
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,8 +41,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         Handler().postDelayed({
             val mainFragment = MainFragment()
-            mainFragment.enterTransition = TransitionInflater.from(this).inflateTransition(R.transition.content_main_in)
+            val transition :  TransitionSet? = TransitionInflater.from(this).inflateTransition(R.transition.content_main_in) as TransitionSet?
+            mainFragment.enterTransition = transition
             mainFragment.exitTransition = TransitionInflater.from(this).inflateTransition(R.transition.content_main_out)
+
+            transition?.addListener(object  : Transition.TransitionListener {
+                override fun onTransitionEnd(transition: Transition) {
+                    mainFragment.setupView()
+                }
+
+                override fun onTransitionResume(transition: Transition) {
+                }
+
+                override fun onTransitionPause(transition: Transition) {
+                }
+
+                override fun onTransitionCancel(transition: Transition) {
+                }
+
+                override fun onTransitionStart(transition: Transition) {
+                }
+
+            })
 
             supportFragmentManager.beginTransaction()
                     .replace(R.id.scene_root, mainFragment)

@@ -1,5 +1,7 @@
 package org.providentiam.jejuniisdiebus
 
+import android.animation.LayoutTransition
+import android.animation.LayoutTransition.CHANGING
 import android.animation.PropertyValuesHolder
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -12,6 +14,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.db.chart.animation.Animation
 import com.db.chart.model.BarSet
 import com.db.chart.renderer.AxisRenderer
@@ -28,7 +31,18 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        summary_table.setFactory { TextView(context) }
+        summary_table.setInAnimation(context, R.anim.fade_in)
+        summary_table.setOutAnimation(context, R.anim.fade_out)
+
+        content_main_layout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+
         setupChart()
+    }
+
+    fun setupView() {
+        animateChart()
         setupSummary()
     }
 
@@ -51,17 +65,31 @@ class MainFragment : Fragment() {
 
         val text = "<p>You have tracked $fasting_count fasting periods so far.<br><b>This month count is $fasting_month_count periods</b>.</p><p>Your goal is to fast for <b>at least $fasting_goal hours</b> and your actual <b>average is $fasting_average hours</b>.</p><p>Your last fast was on ${formatter.format(fasting_last_date)} ($fasting_last_duration hours).<br>It has been <b>$fasting_interval hours since the last fasting period</b></p>"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            summary_table.text = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
+            summary_table.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY))
         } else {
             @Suppress("DEPRECATION")
-            summary_table.text = Html.fromHtml(text)
+            summary_table.setText(Html.fromHtml(text))
         }
     }
 
     private fun setupChart() {
+        val labelsX = arrayOf("na", "na", "na", "na", "na", "na", "na")
+        val values = floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, 0f)
+
+        val barSet = BarSet(labelsX, values)
+        barSet.color = Color.parseColor("#48a999")
+        chart.addData(barSet)
+
+        chart.setXLabels(AxisRenderer.LabelPosition.NONE)
+                .setYLabels(AxisRenderer.LabelPosition.NONE)
+                .show(0)
+    }
+
+    private fun animateChart() {
         val labelsX = arrayOf("na", "na", "Sun", "Tue", "Wed", "Thu", "Sun")
         val values = floatArrayOf(0f, 0f, 38f, 17f, 17f, 21f, 16f)
 
+        chart.data.clear()
         val barSet = BarSet(labelsX, values)
         barSet.color = Color.parseColor("#48a999")
         chart.addData(barSet)
@@ -86,22 +114,23 @@ class MainFragment : Fragment() {
     }
 
     private fun showTooltip() {
-        // Tooltip
-        val tip = Tooltip(this.context, R.layout.square_tooltip)
+        if (context != null) {
+            val tip = Tooltip(this.context, R.layout.square_tooltip)
 
-        tip.setEnterAnimation(PropertyValuesHolder.ofFloat(View.ALPHA, 1f),
-                PropertyValuesHolder.ofFloat(View.SCALE_X, 1f),
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f)).duration = 200
+            tip.setEnterAnimation(PropertyValuesHolder.ofFloat(View.ALPHA, 1f),
+                    PropertyValuesHolder.ofFloat(View.SCALE_X, 1f),
+                    PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f)).duration = 200
 
-        tip.setExitAnimation(PropertyValuesHolder.ofFloat(View.ALPHA, 0f),
-                PropertyValuesHolder.ofFloat(View.SCALE_X, 0f),
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f)).duration = 200
+            tip.setExitAnimation(PropertyValuesHolder.ofFloat(View.ALPHA, 0f),
+                    PropertyValuesHolder.ofFloat(View.SCALE_X, 0f),
+                    PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f)).duration = 200
 
-        tip.setVerticalAlignment(Tooltip.Alignment.TOP_TOP)
-        tip.setDimensions(Tools.fromDpToPx(18f).toInt(), Tools.fromDpToPx(18f).toInt())
-        tip.setMargins(0, Tools.fromDpToPx(5f).toInt(), 0, 0)
-        tip.prepare(chart.getEntriesArea(0)[2], 0f)
+            tip.setVerticalAlignment(Tooltip.Alignment.TOP_TOP)
+            tip.setDimensions(Tools.fromDpToPx(18f).toInt(), Tools.fromDpToPx(18f).toInt())
+            tip.setMargins(0, Tools.fromDpToPx(5f).toInt(), 0, 0)
+            tip.prepare(chart.getEntriesArea(0)[2], 0f)
 
-        chart.showTooltip(tip, true)
+            chart.showTooltip(tip, true)
+        }
     }
 }

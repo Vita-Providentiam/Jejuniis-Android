@@ -9,8 +9,8 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
-    tools:showIn="@layout/app_bar_main">
-
+    tools:showIn="@layout/app_bar_main"
+    android:animateLayoutChanges="true" >
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_charts"
         style="style/Widget.MaterialComponents.CardView"
@@ -82,7 +82,6 @@
         <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <TextView
                 android:id="@+id/summary_description"
                 android:layout_width="0dp"
@@ -102,7 +101,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <TextSwitcher
                 android:id="@+id/summary_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

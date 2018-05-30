@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.clans.fab.FloatingActionMenu
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_running.*
 import org.providentiam.jejuniisdiebus.utils.FabHelper
 import org.providentiam.jejuniisdiebus.utils.FabHelperApi23
@@ -35,6 +34,7 @@ class RunningFragment : Fragment() {
 
         enterTransition.addListener(object : Transition.TransitionListener {
             override fun onTransitionEnd(transition: Transition?) {
+                mainFragment.setupView()
             }
 
             override fun onTransitionStart(transition: Transition?) {
