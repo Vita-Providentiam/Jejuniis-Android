@@ -90,3 +90,4 @@ fastlane/readme.md
 hs_err_pid*
 keystore
 app/release
+app/debug
