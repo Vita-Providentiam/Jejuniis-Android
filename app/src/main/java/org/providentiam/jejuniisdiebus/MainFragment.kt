@@ -100,7 +100,6 @@ class MainFragment : Fragment() {
         thresholdPaint.isAntiAlias = true
         thresholdPaint.strokeWidth = Tools.fromDpToPx(.75f)
         thresholdPaint.pathEffect = DashPathEffect(floatArrayOf(10f, 10f), 0f)
-        chart.setLabelThreshold( 2, 2, thresholdPaint)
         chart.setValueThreshold( 36f, 36f, thresholdPaint)
 
         val order = intArrayOf(2, 3, 4, 5, 6, 0, 1)
@@ -109,7 +108,7 @@ class MainFragment : Fragment() {
 
         chart.setXLabels(AxisRenderer.LabelPosition.OUTSIDE)
                 .setYLabels(AxisRenderer.LabelPosition.OUTSIDE)
-                .setStep(18)
+                .setAxisBorderValues(0f, 48f, 12f)
                 .show(Animation().inSequence(.5f, order).withEndAction(chartOneAction))
     }
 
