@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun fabAction() {
         fab_menu.visibility = View.VISIBLE
-        fab.visibility = View.GONE
+        fab.hide()
 
         val runningFragment = RunningFragment()
         runningFragment.enterTransition = TransitionInflater.from(this).inflateTransition(R.transition.content_running_in)

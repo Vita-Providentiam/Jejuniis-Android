@@ -60,7 +60,7 @@ class RunningFragment : Fragment() {
 
                 .runOnCommit({
                     val fab = mainFragment.activity!!.findViewById<FloatingActionButton>(R.id.fab)
-                    fab.visibility = View.VISIBLE
+                    fab.show()
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (fab.drawable is AnimatedVectorDrawableCompat) {
