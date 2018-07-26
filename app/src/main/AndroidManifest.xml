@@ -9,19 +9,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
-    </application>
+            android:label="@string/title_activity_settings">
+        </activity>
 
+        <receiver android:name=".MiBandBroadcastReceiver"
+            android:enabled="true"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.mc.miband.buttonPressed1" />
+                <action android:name="com.mc.miband.buttonPressed2" />
+                <action android:name="com.mc.miband.buttonPressed3"/>
+
+                <action android:name="com.mc.miband.lift"/>
+                <action android:name="com.mc.miband.lift2"/>
+                <action android:name="com.mc.miband.lift3"/>
+
+                <action android:name="com.mc.miband.connected"/>
+                <action android:name="com.mc.miband.disconnected"/>
+                <action android:name="com.mc.miband.tasker.notWearing"/>
+
+                <action android:name="com.mc.miband.heartRateGot"/>
+                <action android:name="com.mc.miband.stepsGot"/>
+                <action android:name="com.mc.miband.batteryStatGot"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+    </application>
 </manifest>

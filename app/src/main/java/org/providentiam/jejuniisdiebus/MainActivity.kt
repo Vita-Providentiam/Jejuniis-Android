@@ -1,11 +1,15 @@
 package org.providentiam.jejuniisdiebus
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -15,12 +19,14 @@ import android.transition.TransitionSet
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.providentiam.jejuniisdiebus.utils.FabHelper
 import org.providentiam.jejuniisdiebus.utils.FabHelperApi23
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private var broadCastReceiver: MiBandBroadcastReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +74,47 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .replace(R.id.scene_root, mainFragment)
                     .commit()
         }, 1200)
+
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        unregisterReceiver(broadCastReceiver!!)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        sendBroadcast(Intent("com.mc.miband.connectToBand"))
+        sendBroadcast(Intent("com.mc.miband.heartRateRead"))
+        sendBroadcast(Intent("com.mc.miband.stepsRead"))
+        sendBroadcast(Intent("com.mc.miband.batteryStatRead"))
+
+        if (broadCastReceiver == null) {
+            broadCastReceiver = MiBandBroadcastReceiver()
+        }
+
+        val filter = IntentFilter()
+        filter.addAction("com.mc.miband.buttonPressed1")
+        filter.addAction("com.mc.miband.buttonPressed2")
+        filter.addAction("com.mc.miband.buttonPressed3")
+
+        filter.addAction("com.mc.miband.lift")
+        filter.addAction("com.mc.miband.lift2")
+        filter.addAction("com.mc.miband.lift3")
+        filter.addAction("com.mc.miband.lift3")
+
+        filter.addAction("com.mc.miband.connected")
+        filter.addAction("com.mc.miband.disconnected")
+        filter.addAction("com.mc.miband.tasker.notWearing")
+
+        filter.addAction("com.mc.miband.heartRateGot")
+        filter.addAction("com.mc.miband.stepsGot")
+        filter.addAction("com.mc.miband.batteryStatGot")
+
+        registerReceiver(broadCastReceiver!!, filter)
     }
 
     private fun setupNavigation() {
